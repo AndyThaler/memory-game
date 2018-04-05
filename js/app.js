@@ -25,7 +25,13 @@ function shuffle(array) {
     return array;
 }
 
-
+let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
+function init() {
+let cards = shuffle(items);
+var deck = document.querySelector('.deck');
+cards.forEach(function (item) {
+  deck.insertAdjacentHTML('afterbegin', '<li class="card"><i class="' + cards + '"></i></li>');
+})}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
