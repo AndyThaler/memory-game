@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', init());
 Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
       item.addEventListener('click', function () {
-        if(flipcards<2){
+      if(opencards.length < 2){
+      item.classList.remove("animated");
+      item.classList.remove("flipInY");
       item.classList.add("animated");
       item.classList.add("flipInY");
       item.classList.add("open");
@@ -49,25 +51,41 @@ Array.from(document.getElementsByClassName("card")).forEach(
       console.log(opencards);
       flipcards += 1;
       if (opencards.length == 2){
-        if(opencards[0].innerHTML == opencards[1].innerHTML) match(opencards);
-        else
-         mismatch(opencards);
+        if(opencards[0].innerHTML == opencards[1].innerHTML) {
+          match(opencards);
+          setTimeout(function() {opencards = []}, 1500);
+        }
+        else {
+        setTimeout(mismatch, 500, opencards);
+        setTimeout(function() {opencards = []}, 1500);
+      }
        }
       }
     }
 )});
 
 function mismatch(opencards) {
-  opencards[0].classList.remove("animated");
-  opencards[0].classList.remove("flipInY");
-  opencards[0].classList.add("animated");
-  opencards[0].classList.add("wobble");
-  opencards[1].classList.remove("animated");
-  opencards[1].classList.remove("flipInY");
-  opencards[1].classList.add("animated");
-  opencards[1].classList.add("wobble");
-  setTimeout(function, milliseconds);
+  wiggle(opencards);
+  setTimeout(resetcards, 1000, opencards);
 }
+
+function wiggle(opencards){
+  opencards.forEach(function(item){
+    item.classList.remove("animated");
+    item.classList.remove("flipInY");
+    item.classList.add("animated");
+    item.classList.add("wobble");
+  })}
+
+function resetcards(opencards) {
+  opencards.forEach(function(item){
+  item.classList.remove("animated");
+  item.classList.remove("wobble");
+  item.classList.remove("open");
+  item.classList.remove("show");
+  item.classList.add("animated");
+  item.classList.add("flipInY");
+})}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
