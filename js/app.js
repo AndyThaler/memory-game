@@ -53,7 +53,7 @@ Array.from(document.getElementsByClassName("card")).forEach(
       if (opencards.length == 2){
         if(opencards[0].innerHTML == opencards[1].innerHTML) {
           match(opencards);
-          setTimeout(function() {opencards = []}, 1500);
+          setTimeout(match, 1500, opencards);
         }
         else {
         setTimeout(mismatch, 500, opencards);
@@ -64,10 +64,21 @@ Array.from(document.getElementsByClassName("card")).forEach(
     }
 )});
 
+function match(opencards) {
+flash(opencards);
+}
 function mismatch(opencards) {
   wiggle(opencards);
   setTimeout(resetcards, 1000, opencards);
 }
+
+function flash(opencards) {
+  opencards.forEach(function(item){
+    item.classList.remove("animated");
+    item.classList.remove("flipInY");
+    item.classList.add("animated");
+    item.classList.add("flash");
+  })}
 
 function wiggle(opencards){
   opencards.forEach(function(item){
@@ -86,6 +97,10 @@ function resetcards(opencards) {
   item.classList.add("animated");
   item.classList.add("flipInY");
 })}
+
+function fullreset(opencards) {
+  i
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
