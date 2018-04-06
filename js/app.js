@@ -1,8 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-
-
+let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
+var flipcards = 0;
+var opencards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -25,7 +26,7 @@ function shuffle(array) {
     return array;
 }
 
-let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
+
 
 function init() {
 let cards = shuffle(items);
@@ -39,12 +40,34 @@ document.addEventListener('DOMContentLoaded', init());
 Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
       item.addEventListener('click', function () {
+        if(flipcards<2){
       item.classList.add("animated");
       item.classList.add("flipInY");
       item.classList.add("open");
       item.classList.add("show");
+      opencards.push(item);
+      console.log(opencards);
+      flipcards += 1;
+      if (opencards.length == 2){
+        if(opencards[0].innerHTML == opencards[1].innerHTML) match(opencards);
+        else
+         mismatch(opencards);
+       }
+      }
     }
 )});
+
+function mismatch(opencards) {
+  opencards[0].classList.remove("animated");
+  opencards[0].classList.remove("flipInY");
+  opencards[0].classList.add("animated");
+  opencards[0].classList.add("wobble");
+  opencards[1].classList.remove("animated");
+  opencards[1].classList.remove("flipInY");
+  opencards[1].classList.add("animated");
+  opencards[1].classList.add("wobble");
+  setTimeout(function, milliseconds);
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
