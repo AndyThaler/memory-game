@@ -41,16 +41,17 @@ Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
       item.addEventListener('click', function () {
       if(opencards.length < 2){
-      item.classList.remove("animated");
-      item.classList.remove("flipInY");
       item.classList.add("animated");
       item.classList.add("flipInY");
       item.classList.add("open");
       item.classList.add("show");
       opencards.push(item);
       console.log(opencards);
-      flipcards += 1;
       if (opencards.length == 2){
+        flipcards += 1;
+        document.querySelector('.moves').innerText = flipcards;
+        if (flipcards == 1) document.querySelector('.noun').innerText = " Move";
+        else document.querySelector('.noun').innerText = " Moves";
         if(opencards[0].innerHTML == opencards[1].innerHTML) {
            match(opencards);
            opencards = [];
