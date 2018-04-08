@@ -52,8 +52,8 @@ Array.from(document.getElementsByClassName("card")).forEach(
       flipcards += 1;
       if (opencards.length == 2){
         if(opencards[0].innerHTML == opencards[1].innerHTML) {
-          match(opencards);
-          setTimeout(match, 1500, opencards);
+           match(opencards);
+           opencards = [];
         }
         else {
         setTimeout(mismatch, 500, opencards);
@@ -96,11 +96,14 @@ function resetcards(opencards) {
   item.classList.remove("show");
   item.classList.add("animated");
   item.classList.add("flipInY");
+  setTimeout(fullreset, 500, opencards);
 })}
 
 function fullreset(opencards) {
-  i
-}
+  opencards.forEach(function(item){
+    item.classList.remove("animated");
+    item.classList.remove("flipInY");
+})}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
