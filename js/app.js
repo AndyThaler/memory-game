@@ -3,6 +3,7 @@
  */
 let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
 var flipcards = 0;
+var pairs = 0;
 var opencards = [];
 /*
  * Display the cards on the page
@@ -81,7 +82,10 @@ function moves(flipcards){
 
 function match(opencards) {
 flash(opencards);
+pairs += 1;
+if (pairs == 8) setTimeout(popup, 3000);
 }
+
 function mismatch(opencards) {
   wiggle(opencards);
   setTimeout(resetcards, 1000, opencards);
@@ -119,6 +123,12 @@ var restart = document.querySelector(".restart");
 restart.addEventListener('click', function () {
   window.location.reload(false);
 });
+
+function popup(){
+if (confirm("You won!\n It took you " + document.querySelector(".moves").innerText + " Moves to win!\n Do you want to restart?")) {
+   window.location.reload(false);
+}}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
