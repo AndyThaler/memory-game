@@ -36,8 +36,13 @@ cards.forEach(function (item) {
   deck.insertAdjacentHTML('afterbegin', '<li class="card"><i class="' + item + '"></i></li>');
 })}
 
-document.addEventListener('DOMContentLoaded', init());
+document.addEventListener('DOMContentLoaded', firstinit());
 
+function firstinit(){
+  alert("Welcome to my memory game! Are you ready to play?");
+  init();
+}
+const startingTime = performance.now();
 Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
       item.addEventListener('click', function () {
@@ -83,7 +88,7 @@ function moves(flipcards){
 function match(opencards) {
 flash(opencards);
 pairs += 1;
-if (pairs == 8) setTimeout(popup, 3000);
+if (pairs == 8) setTimeout(popup, 1000);
 }
 
 function mismatch(opencards) {
@@ -125,7 +130,10 @@ restart.addEventListener('click', function () {
 });
 
 function popup(){
-if (confirm("You won!\n It took you " + document.querySelector(".moves").innerText + " Moves to win!\n Do you want to restart?")) {
+  const endingTime = performance.now();
+  console.log(endingTime);
+  var difference = (endingTime-startingTime)/1000;
+if (confirm("You won!\n It took you " + document.querySelector(".moves").innerText + " Moves and \n" + Math.round(difference) + " seconds to win!\n Do you want to restart?")) {
    window.location.reload(false);
 }}
 
