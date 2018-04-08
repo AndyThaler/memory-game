@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-* [Project information](#project information)
+* [Project information](#project_information)
 * [Contributing](#contributing)
 * [Idea](#idea)
 * [How It Works](#how it works)
