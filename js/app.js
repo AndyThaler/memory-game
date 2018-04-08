@@ -114,6 +114,11 @@ function fullreset(opencards) {
     item.classList.remove("animated");
     item.classList.remove("flipInY");
 })}
+
+var restart = document.querySelector(".restart");
+restart.addEventListener('click', function () {
+  window.location.reload(false);
+});
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
