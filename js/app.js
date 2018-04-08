@@ -46,12 +46,9 @@ Array.from(document.getElementsByClassName("card")).forEach(
       item.classList.add("open");
       item.classList.add("show");
       opencards.push(item);
-      console.log(opencards);
       if (opencards.length == 2){
         flipcards += 1;
-        document.querySelector('.moves').innerText = flipcards;
-        if (flipcards == 1) document.querySelector('.noun').innerText = " Move";
-        else document.querySelector('.noun').innerText = " Moves";
+        moves(flipcards);
         if(opencards[0].innerHTML == opencards[1].innerHTML) {
            match(opencards);
            opencards = [];
@@ -60,10 +57,27 @@ Array.from(document.getElementsByClassName("card")).forEach(
         setTimeout(mismatch, 500, opencards);
         setTimeout(function() {opencards = []}, 1500);
       }
-       }
-      }
     }
+  }
+}
 )});
+
+function moves(flipcards){
+  document.querySelector('.moves').innerText = flipcards;
+  if (flipcards == 1) document.querySelector('.noun').innerText = " Move";
+
+  else {
+    document.querySelector('.noun').innerText = " Moves";
+    if (flipcards == 12) {
+      var select = document.querySelector('.stars');
+      select.removeChild(select.lastElementChild);
+    }
+    if (flipcards == 17){
+        select = document.querySelector('.stars');
+        select.removeChild(select.lastElementChild);
+      }
+  }
+}
 
 function match(opencards) {
 flash(opencards);
@@ -77,6 +91,7 @@ function flash(opencards) {
   opencards.forEach(function(item){
     item.classList.remove("flipInY");
     item.classList.add("flash");
+    item.classList.add("match");
   })}
 
 function wiggle(opencards){
