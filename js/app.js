@@ -74,27 +74,21 @@ function mismatch(opencards) {
 
 function flash(opencards) {
   opencards.forEach(function(item){
-    item.classList.remove("animated");
     item.classList.remove("flipInY");
-    item.classList.add("animated");
     item.classList.add("flash");
   })}
 
 function wiggle(opencards){
   opencards.forEach(function(item){
-    item.classList.remove("animated");
     item.classList.remove("flipInY");
-    item.classList.add("animated");
     item.classList.add("wobble");
   })}
 
 function resetcards(opencards) {
   opencards.forEach(function(item){
-  item.classList.remove("animated");
   item.classList.remove("wobble");
   item.classList.remove("open");
   item.classList.remove("show");
-  item.classList.add("animated");
   item.classList.add("flipInY");
   setTimeout(fullreset, 500, opencards);
 })}
