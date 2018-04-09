@@ -174,6 +174,12 @@ function popup(){
           modal.style.display = "none";
       }
   }
+  var modres = document.querySelector(".modal-restart");
+  modres.addEventListener('click', function () {
+    modal.style.display = "none";
+    empty();
+    init();
+  });
 }
 
 /*
