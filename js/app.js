@@ -4,6 +4,9 @@
 let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
 var flipcards = 0;
 var pairs = 0;
+var sec = 0;
+var min = 0;
+var stop = 0;
 var opencards = [];
 /*
  * Display the cards on the page
@@ -37,6 +40,10 @@ function empty() {
 function init() {
 flipcards = 0;
 pairs = 0;
+sec = 0;
+stop = 0;
+min = 0;
+stop = setInterval(timecounter, 1000);
 opencards = [];
 moves(flipcards);
 let cards = shuffle(items);
@@ -51,13 +58,22 @@ cards.forEach(function (item) {
 addListener();
 }
 
+function timecounter () {
+  var counter = document.querySelector('.counter');
+  sec += 1;
+  if (sec < 60) counter.innerText = "Time: " + min + "min " + sec;
+  else {
+    min += 1;
+    sec = 0;
+    counter.innerText = "Time: " + min + "min " + sec;
+  }
+}
 document.addEventListener('DOMContentLoaded', firstinit());
 
 function firstinit(){
   alert("Welcome to my memory game! Are you ready to play?");
   init();
 }
-const startingTime = performance.now();
 
 function addListener(){
 Array.from(document.getElementsByClassName("card")).forEach(
@@ -104,9 +120,12 @@ function moves(flipcards){
 }
 
 function match(opencards) {
-flash(opencards);
-pairs += 1;
-if (pairs == 8) setTimeout(popup, 1000);
+  flash(opencards);
+  pairs += 1;
+  if (pairs == 8) {
+    clearInterval(stop);
+    setTimeout(popup, 1000);
+  }
 }
 
 function mismatch(opencards) {
@@ -144,6 +163,7 @@ function fullreset(opencards) {
 
 var restart = document.querySelector(".restart");
 restart.addEventListener('click', function () {
+  clearInterval(stop);
   empty();
   init();
 });
@@ -160,9 +180,6 @@ restart.addEventListener('click', function () {
 
 
 function popup(){
-  const endingTime = performance.now();
-  console.log(endingTime);
-  var difference = (endingTime-startingTime)/1000;
   var modal = document.getElementById('myModal');
   var span = document.getElementsByClassName("close")[0];
   modal.style.display = "block";
@@ -178,6 +195,7 @@ function popup(){
   modres.addEventListener('click', function () {
     modal.style.display = "none";
     empty();
+    clearInterval(stop);
     init();
   });
 }
