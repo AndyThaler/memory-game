@@ -1,6 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
+
 let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
 var flipcards = 0;
 var pairs = 0;
@@ -8,12 +6,8 @@ var sec = 0;
 var min = 0;
 var stop = 0;
 var opencards = [];
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -61,7 +55,7 @@ addListener();
 function timecounter () {
   var counter = document.querySelector('.counter');
   sec += 1;
-  if (sec < 60) counter.innerText = "Time: " + min + "min " + sec;
+  if (sec < 60) counter.innerText = min + "min " + sec;
   else {
     min += 1;
     sec = 0;
@@ -169,20 +163,12 @@ restart.addEventListener('click', function () {
 });
 
 
-
-// When the user clicks the button, open the modal
-
-
-// When the user clicks on <span> (x), close the modal
-
-
-// When the user clicks anywhere outside of the modal, close it
-
-
 function popup(){
-  var modal = document.getElementById('myModal');
+  var modal = document.getElementById("myModal");
   var span = document.getElementsByClassName("close")[0];
+  var text = document.getElementById("winntext");
   modal.style.display = "block";
+  text.innerHTML = "It took you " + document.querySelector('.moves').innerText + " Moves and a time of " + document.querySelector('.counter').innerText + " seconds!";
   span.onclick = function() {
       modal.style.display = "none";
   }
@@ -199,14 +185,3 @@ function popup(){
     init();
   });
 }
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
