@@ -79,7 +79,7 @@ function addListener(){
 Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
       item.addEventListener('click', function () {
-            if(opencards.length < 2){
+            if(!opencards.includes(item) && opencards.length < 2){
             item.classList.add("animated");
             item.classList.add("flipInY");
             item.classList.add("open");
@@ -89,7 +89,7 @@ Array.from(document.getElementsByClassName("card")).forEach(
               flipcards += 1;
               moves(flipcards);
               if(opencards[0].innerHTML == opencards[1].innerHTML) {
-                 match(opencards);
+                 setTimeout(match, 500, opencards);
                  opencards = [];
               }
               else {
