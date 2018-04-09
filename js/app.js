@@ -27,11 +27,17 @@ function shuffle(array) {
     return array;
 }
 
-
+function empty() {
+  var deck = document.querySelector(".deck");
+while (deck.firstChild) {
+    deck.removeChild(deck.firstChild);
+}
+}
 
 function init() {
 let cards = shuffle(items);
 var deck = document.querySelector('.deck');
+
 cards.forEach(function (item) {
   deck.insertAdjacentHTML('afterbegin', '<li class="card"><i class="' + item + '"></i></li>');
 })}
@@ -46,27 +52,28 @@ const startingTime = performance.now();
 Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
       item.addEventListener('click', function () {
-      if(opencards.length < 2){
-      item.classList.add("animated");
-      item.classList.add("flipInY");
-      item.classList.add("open");
-      item.classList.add("show");
-      opencards.push(item);
-      if (opencards.length == 2){
-        flipcards += 1;
-        moves(flipcards);
-        if(opencards[0].innerHTML == opencards[1].innerHTML) {
-           match(opencards);
-           opencards = [];
+            if(opencards.length < 2){
+            item.classList.add("animated");
+            item.classList.add("flipInY");
+            item.classList.add("open");
+            item.classList.add("show");
+            opencards.push(item);
+            if (opencards.length == 2){
+              flipcards += 1;
+              moves(flipcards);
+              if(opencards[0].innerHTML == opencards[1].innerHTML) {
+                 match(opencards);
+                 opencards = [];
+              }
+              else {
+              setTimeout(mismatch, 500, opencards);
+              setTimeout(function() {opencards = []}, 1500);
+            }
+          }
         }
-        else {
-        setTimeout(mismatch, 500, opencards);
-        setTimeout(function() {opencards = []}, 1500);
-      }
-    }
-  }
-}
-)});
+      })});
+
+
 
 function moves(flipcards){
   document.querySelector('.moves').innerText = flipcards;
@@ -126,16 +133,37 @@ function fullreset(opencards) {
 
 var restart = document.querySelector(".restart");
 restart.addEventListener('click', function () {
-  window.location.reload(false);
+  empty();
+  firstinit();
 });
+
+
+
+// When the user clicks the button, open the modal
+
+
+// When the user clicks on <span> (x), close the modal
+
+
+// When the user clicks anywhere outside of the modal, close it
+
 
 function popup(){
   const endingTime = performance.now();
   console.log(endingTime);
   var difference = (endingTime-startingTime)/1000;
-if (confirm("You won!\n It took you " + document.querySelector(".moves").innerText + " Moves and \n" + Math.round(difference) + " seconds to win!\n Do you want to restart?")) {
-   window.location.reload(false);
-}}
+  var modal = document.getElementById('myModal');
+  var span = document.getElementsByClassName("close")[0];
+  modal.style.display = "block";
+  span.onclick = function() {
+      modal.style.display = "none";
+  }
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
