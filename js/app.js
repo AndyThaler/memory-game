@@ -1,5 +1,6 @@
 
-let items = ["fa fa-diamond", "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb", "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o", "fa fa-cube"];
+let itemssingle = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube", "fa fa-leaf", "fa fa-bicycle", "fa fa-bomb"];
+let items = itemssingle.concat(itemssingle);
 var flipcards = 0;
 var pairs = 0;
 var sec = 0;
@@ -23,7 +24,7 @@ function shuffle(array) {
 
     return array;
 }
-
+//Empty function to empty the whole deck to prepare it for new cards
 function empty() {
   var deck = document.querySelector(".deck");
   deck.innerHTML = '';
@@ -31,6 +32,10 @@ function empty() {
   stars.innerHTML = '';
 }
 
+/*Initial function:
+    * Resets all parameters
+    * Starts Timer
+    * Lays cards onto the deck */
 function init() {
 flipcards = 0;
 pairs = 0;
@@ -52,6 +57,7 @@ cards.forEach(function (item) {
 addListener();
 }
 
+//Timer-function w/ increment and output on the webpage
 function timecounter () {
   var counter = document.querySelector('.counter');
   sec += 1;
@@ -62,13 +68,19 @@ function timecounter () {
     counter.innerText = "Time: " + min + "min " + sec;
   }
 }
-document.addEventListener('DOMContentLoaded', firstinit());
+document.addEventListener('DOMContentLoaded', firstinit()); //start app.js when DOM is fully loaded
 
+//shows an alert to prepare the player for the match-begin
 function firstinit(){
-  alert("Welcome to my memory game! Are you ready to play?");
+  alert("Welcome to my memory game! Are you ready to play? Press OK and lets go!");
   init();
 }
 
+/*Eventlistener-function:
+    * Adds eventlistener for clicks on all cards
+    * Forks the code into match & mismatch
+    * Calls moves() to increase the Moves
+    * calls for more functions (see below)*/
 function addListener(){
 Array.from(document.getElementsByClassName("card")).forEach(
     function(item) {
@@ -95,7 +107,7 @@ Array.from(document.getElementsByClassName("card")).forEach(
       })});
 }
 
-
+//moves function to display current moves and adjust star-level
 function moves(flipcards){
   document.querySelector('.moves').innerText = flipcards;
   if (flipcards == 1) document.querySelector('.noun').innerText = " Move";
@@ -112,7 +124,7 @@ function moves(flipcards){
       }
   }
 }
-
+//match-function calling animate-fct, or call winning-fct
 function match(opencards) {
   flash(opencards);
   pairs += 1;
@@ -121,25 +133,25 @@ function match(opencards) {
     setTimeout(popup, 1000);
   }
 }
-
+//mismatch-function calling animate-fct and afterwards reseting cards
 function mismatch(opencards) {
   wiggle(opencards);
   setTimeout(resetcards, 1000, opencards);
 }
-
+//match-animation
 function flash(opencards) {
   opencards.forEach(function(item){
     item.classList.remove("flipInY");
     item.classList.add("flash");
     item.classList.add("match");
   })}
-
+//mismatch-animation
 function wiggle(opencards){
   opencards.forEach(function(item){
     item.classList.remove("flipInY");
     item.classList.add("wobble");
   })}
-
+//resets the animatinons for the cards
 function resetcards(opencards) {
   opencards.forEach(function(item){
   item.classList.remove("wobble");
@@ -154,7 +166,7 @@ function fullreset(opencards) {
     item.classList.remove("animated");
     item.classList.remove("flipInY");
 })}
-
+//restart-btn calling the reset-fcts
 var restart = document.querySelector(".restart");
 restart.addEventListener('click', function () {
   clearInterval(stop);
@@ -162,7 +174,7 @@ restart.addEventListener('click', function () {
   init();
 });
 
-
+//winning-modal
 function popup(){
   var modal = document.getElementById("myModal");
   var span = document.getElementsByClassName("close")[0];
